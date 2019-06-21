@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div align="right">
+			<a th:href="@{/tipotarjetas/nuevo}" id="add-row" type="button"
+				class="btn btn-info">Nuevo</a>
+		</div>
+		<div>
+			<form th:action="@{/tipotarjetas/buscar}" method="post"
+				th:object="${tipotarjeta}">
+				<div class="form-group">
+
+					<label for="tipotarjeta">Buscar:</label> <input type="text"
+						class="form-control" th:field="*{nameTipotarjeta}" id="tipotarjeta"></input>
+					<div align="right">
+						<button type="submit" class="btn btn-warning">Aceptar</button>
+						<a href="/tipotarjetas/listar" class="btn btn-secondary">Cancelar</a>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="card">
+			<div class="card-header text-white bg-dark mb-3">Reporte de
+				Tipo de tarjetas</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-white">
+						<thead class="bg-dark mb-3 text-white">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+
+								<th align="center">Eliminar</th>
+								<th align="center">Actualizar</th>
+							</tr>
+						</thead>
+						<tbody id="tipotarjeta-list">
+							<tr th:each="tipotarjeta:${listaTipotarjetas}">
+								<td th:text="${tipotarjeta.idTipotarjeta}"></td>
+								<td th:text="${tipotarjeta.nameTipotarjeta}"></td>
+
+								<td align="center"><a
+									th:href="@{/tipotarjetas/eliminar?id=}+${tipotarjeta.idTipotarjeta}">
+										<span class="glyphicon glyphicon-road"></span>
+								</a></td>
+								<td align="center"><a
+									th:href="@{'/tipotarjetas/detalle/' + ${tipotarjeta.idTipotarjeta}}"><span
+										class="glyphicon glyphicon-cog"></span></a></td>
+							</tr>
+						</tbody>
+
+					</table>
+					<p th:text="${mensaje}"></p>
+					<div th:if="${mensaje}" class="alert alert-info">
+						<p th:text="${mensaje}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
+

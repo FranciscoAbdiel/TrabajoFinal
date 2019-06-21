@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div align="right">
+			<a th:href="@{/clientes/nuevo}" id="add-row" type="button"
+				class="btn btn-warning">Nuevo</a>
+		</div>
+		<div>
+			<form th:action="@{/clientes/buscar}" method="post"
+				th:object="${cliente}">
+				<div class="form-group">
+
+					<label for="cliente">Buscar:</label> <input type="text"
+						class="form-control" th:field="*{nombreCliente}" id="cliente"></input>
+					<div align="right">
+						<button type="submit" class="btn btn-Dark">Aceptar</button>
+						<a href="/clientes/listar" class="btn btn-danger">Cancelar</a>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="card">
+			<div class="card-header text-white bg-primary">Reporte de
+				Clientes</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-white">
+						<thead class="bg-primary text-white">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>DNI</th>
+								<th>Fecha de Nacimiento</th>
+								<th>Direccion</th>
+								<th>Email</th>
+								<th>Telefono Movil</th>
+								<th>Usuario</th>
+								<th>Password</th>
+
+
+							</tr>
+						</thead>
+						<tbody id="cliente-list">
+							<tr th:each="cliente:${listaClientes}">
+								<td th:text="${cliente.idCliente}"></td>
+								<td th:text="${cliente.nombreCliente}"></td>
+								<td th:text="${cliente.apellidoCliente}"></td>
+								<td th:text="${cliente.dniCliente}"></td>
+								<td
+									th:text="${#dates.format(cliente.nacimientoCliente,'dd/MM/yyyy')}"></td>
+								<td th:text="${cliente.direccionCliente}"></td>
+								<td th:text="${cliente.emailCliente}"></td>
+								<td th:text="${cliente.telefonoCliente}"></td>
+								<td th:text="${cliente.usuarioCliente}"></td>
+									<td th:text="${cliente.passwordCliente}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<p th:text="${mensaje}"></p>
+					<div th:if="${mensaje}" class="alert alert-info">
+						<p th:text="${mensaje}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div align="right">
+			<a style="border-bottom-color: green" th:href="@{/tarjetas/nuevo}"
+				id="add-row" type="button" class="btn btn-primary btn-md left-block">
+				<span class="glyphicon glyphicon-plus"></span>
+			</a>
+		</div>
+		<div>
+			<form th:action="@{/tarjetas/buscar}" method="post"
+				th:object="${tarjeta}">
+				<div class="form-group">
+
+					<label for="t">Buscar:</label> <input type="text"
+						class="form-control" th:field="*{numeroTarjeta}" id="t"></input>
+					<div align="right">
+						<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+						<a href="/tarjetas/listar" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="card">
+			<div class="card-header text-white bg-dark mb-3">Reporte de
+				Tarjeta</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-white">
+						<thead class="bg-dark mb-3 text-white">
+							<tr>
+								<th>Id</th>
+								<th>Numero tarjeta</th>
+								<th>Monto</th>
+						
+								<th>Fecha de Vencimiento</th>
+								<th>Tipo tarjeta</th>
+								<th>CVC</th>
+								<th align="center">Operación</th>
+								<th align="center">Operación</th>
+							</tr>
+						</thead>
+						<tbody id="tarjeta-list">
+							<tr th:each="tarjeta:${listaTarjetas}">
+								<td><a class="btn btn-info btn-xs"
+									th:href="@{/tarjetas/ver/} + ${tarjeta.idTarjeta}"
+									th:text="${tarjeta.idTarjeta}"></a></td>
+								<td th:text="${tarjeta.numeroTarjeta}"></td>
+								<td th:text="${tarjeta.montoTarjeta}"></td>
+								<td
+									th:text="${#dates.format(tarjeta.fechaVencimiento,'dd/MM/yyyy')}"></td>
+								<td th:text="${tarjeta.tipotarjeta.nameTipotarjeta}"></td>
+								<td th:text="${tarjeta.cvc}"></td>
+
+								<td align="center"><a
+									th:href="@{/tarjetas/eliminar?id=}+${tarjeta.idTarjeta}">
+										<span class="glyphicon glyphicon-trash"></span>
+								</a></td>
+								<td align="center"><a
+									th:href="@{'/tarjetas/modificar/' + ${tarjeta.idTarjeta}}"><span
+										class="glyphicon glyphicon-edit"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<p th:text="${mensaje}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>
+
+
