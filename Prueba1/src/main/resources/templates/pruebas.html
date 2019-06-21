@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="card bg-light">
+			<div class="card-header text-black bg-blue">Registro de
+				Clientes</div>
+			<p th:text="${mensaje}" class="form-text text-danger"></p>
+			<form th:action="@{/clientes/guardar}" th:object="${cliente}"
+				method="post">
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">Usuario</label>
+					<div class="col-sm-6">
+						<input type="text" name="username" id="users.username"
+							class="form-control" placeholder="Usuario" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">Nombre</label>
+					<div class="col-sm-6">
+						<input type="text" name="nombreUsuario" id="users.nombreUsuario"
+							class="form-control" placeholder="Nombre" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">Apellido</label>
+					<div class="col-sm-6">
+						<input type="text" name="apellidoUsuario"
+							id="users.apellidoUsuario" class="form-control"
+							placeholder="Apellido" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">DNI</label>
+					<div class="col-sm-6">
+						<input type="text" name="dniUsuario" id="users.dniUsuario"
+							class="form-control" placeholder="DNI" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">Email</label>
+					<div class="col-sm-6">
+						<input type="text" name="emailUsuario" id="users.emailUsuario"
+							class="form-control" placeholder="Email" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="users" class="col-sm-2 col-form-label">Fecha de
+						nacimiento</label>
+					<div class="col-sm-6">
+						<input type="date" name="fechaNaclUsuario"
+							id="users.fechaNaclUsuario" class="form-control"
+							placeholder="Email" autofocus required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="telefCliente" class="col-sm-2 col-form-label">Telefono</label>
+					<div class="col-sm-6">
+						<input type="text" th:field="*{telefCliente}" class="form-control"
+							placeholder="Telefono" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="dirCliente" class="col-sm-2 col-form-label">Direccion</label>
+					<div class="col-sm-6">
+						<input type="text" th:field="*{dirCliente}" class="form-control"
+							placeholder="Direccion" />
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<div class="col-sm-6" align="center">
+						<input type="submit" value="Registrar" class="btn btn-primary" />
+						<a href="/login" class="btn btn-danger">Cancelar</a>
+					</div>
+				</div>
+
+			</form>
+			<form th:action="@{/clientes/guardar}" th:object="${users}"
+				method="post"></form>
+		</div>
+	</div>
+
+	<div th:if="${mensaje}" class="alert alert-info">
+		<p th:text="${mensaje}"></p>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
